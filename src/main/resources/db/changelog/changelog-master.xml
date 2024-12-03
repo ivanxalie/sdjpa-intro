@@ -10,4 +10,6 @@
     <include  file="db/changelog/baseline-changelog.xml"/>
     <include  file="db/changelog/create-author-changelog.xml"/>
     <include  file="db/changelog/add-author-id-to-book.xml"/>
+    <include  file="db/changelog/create_author_uuid.xml"/>
+    <include  file="db/changelog/create_book_uuid.xml"/>
 </databaseChangeLog>
