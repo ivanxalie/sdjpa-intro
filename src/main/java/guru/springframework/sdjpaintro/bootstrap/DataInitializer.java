@@ -21,7 +21,8 @@ public class DataInitializer {
 
     @PostConstruct
     void init() {
-        bookRepository.deleteAll();
+        cleanTables();
+
         Book ddd = Book.builder()
                 .title("Domain Driven Design")
                 .isbn("123")
@@ -56,5 +57,11 @@ public class DataInitializer {
                         .title("All about UUIDs")
                 .build());
         System.out.printf("Saved Book UUID: %s%n", savedUuidBook.getId());
+    }
+
+    private void cleanTables() {
+        bookRepository.deleteAll();
+        authorUuidRepository.deleteAll();
+        bookUuidRepository.deleteAll();
     }
 }
