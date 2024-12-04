@@ -2,6 +2,7 @@ package guru.springframework.sdjpaintro;
 
 import guru.springframework.sdjpaintro.domain.BookNatural;
 import guru.springframework.sdjpaintro.domain.composite.AuthorComposite;
+import guru.springframework.sdjpaintro.domain.composite.AuthorEmbedded;
 import guru.springframework.sdjpaintro.domain.composite.NameId;
 import guru.springframework.sdjpaintro.repository.*;
 import org.junit.jupiter.api.Test;
@@ -10,8 +11,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,6 +33,26 @@ public class MySQLIntegrationTest {
 
     @Autowired
     private AuthorCompositeRepository authorCompositeRepository;
+
+    @Autowired
+    private AuthorEmbeddableRepository authorEmbeddableRepository;
+
+    @Test
+    void authorEmbeddedTest() {
+        NameId nameId = NameId.builder()
+                .firstName("Ivan")
+                .lastName("Ivanov")
+                .build();
+
+        AuthorEmbedded embedded = AuthorEmbedded.builder()
+                .nameId(nameId)
+                .country("Bulgaria")
+                .build();
+
+        authorEmbeddableRepository.save(embedded);
+
+        authorEmbeddableRepository.findById(nameId).orElseThrow();
+    }
 
     @Test
     void authorCompositeTest() {
